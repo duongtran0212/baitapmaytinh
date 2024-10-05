@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Máy tính mô phỏng</title>
+    <style>
+        #calculator {
+            width: 200px;
+            margin: auto;
+            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        #result {
+            grid-column: span 4;
+            height: 50px;
+            text-align: right;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        /* Style cho dấu bằng để nó chiếm cả 2 hàng */
+        .equal {
+            grid-row: span 2; /* Cho phép dấu bằng chiếm 2 hàng */
+            height: 110px;    /* Điều chỉnh chiều cao để phù hợp với việc chiếm 2 hàng */
+        }
+    </style>
+</head>
+<body>
+    <!-- Màn hình hiển thị kết quả -->
+    <div id="calculator">
+        <input type="text" id="result" readonly>
+
+        <!-- Hàng đầu tiên với các nút chức năng -->
+        <button onclick="clearScreen()">MC</button>
+        <button onclick="appendValue('M+')">M+</button>
+        <button onclick="appendValue('/')">/</button>
+        <button onclick="appendValue('*')">X</button>
+
+        <!-- Hàng thứ hai với các nút số và phép tính -->
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('-')">-</button>
+
+        <!-- Hàng thứ ba với các nút số và dấu cộng -->
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('+')">+</button>
+
+        <!-- Hàng thứ tư với các nút số còn lại và dấu bằng -->
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="calculate()" class="equal">=</button>
+
+        <!-- Hàng cuối cùng với số 0 và dấu chấm -->
+        <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+        <button onclick="appendValue('.')">.</button>
+    </div>
+
+    <script>
+        // Hàm để thêm giá trị vào màn hình hiển thị
+        function appendValue(value) {
+            document.getElementById('result').value += value;
+        }
+
+        // Hàm để xóa màn hình
+        function clearScreen() {
+            document.getElementById('result').value = '';
+        }
+
+        // Hàm để thực hiện phép tính và hiển thị kết quả
+        function calculate() {
+            var result = document.getElementById('result').value;
+            try {
+document.getElementById('result').value = eval(result);
+            } catch (e) {
+                document.getElementById('result').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
